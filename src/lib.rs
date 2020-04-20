@@ -152,6 +152,11 @@ extern crate lazy_static;
 extern crate stdweb;
 extern crate thiserror;
 
+#[cfg(target_arch = "wasm32")]
+extern crate wasm_bindgen;
+#[cfg(target_arch = "wasm32")]
+extern crate web_sys;
+
 pub use error::*;
 pub use platform::{
     available_hosts, default_host, host_from_id, Device, Devices, Host, HostId, Stream,

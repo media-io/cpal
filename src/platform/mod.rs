@@ -500,6 +500,24 @@ mod platform_impl {
     }
 }
 
+#[cfg(target_arch = "wasm32")]
+mod platform_impl {
+    pub use crate::host::wasm::{
+        Device as WasmDevice, Devices as WasmDevices, Host as WasmHost, Stream as WasmStream,
+        SupportedInputConfigs as WasmSupportedInputConfigs,
+        SupportedOutputConfigs as WasmSupportedOutputConfigs,
+    };
+
+    impl_platform_host!(Wasm wasm "Wasm");
+
+    /// The default host for the current compilation target platform.
+    pub fn default_host() -> WasmHost {
+        WasmHost::new()
+            .expect("the default host should always be available")
+            .into()
+    }
+}
+
 #[cfg(windows)]
 mod platform_impl {
     #[cfg(feature = "asio")]
@@ -535,7 +553,8 @@ mod platform_impl {
     target_os = "freebsd",
     target_os = "macos",
     target_os = "ios",
-    target_os = "emscripten"
+    target_os = "emscripten",
+    target_arch = "wasm32"
 )))]
 mod platform_impl {
     pub use crate::host::null::{

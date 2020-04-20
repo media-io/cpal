@@ -6,6 +6,9 @@ pub(crate) mod asio;
 pub(crate) mod coreaudio;
 #[cfg(target_os = "emscripten")]
 pub(crate) mod emscripten;
+#[cfg(target_arch = "wasm32")]
+pub(crate) mod wasm;
+
 pub(crate) mod null;
 #[cfg(windows)]
 pub(crate) mod wasapi;
